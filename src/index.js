@@ -1,12 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ReactDOM,{ render } from 'react-dom';
+import Router from './routes';
+import store from './store';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const run = () =>  {
+    render(Router(store), document.getElementById('rootContainer'));
+};
+// ReactDOM.render(<App />, document.getElementById('root')); // before
+
+if (["complete", "loaded", "interactive"].includes(document.readyState) && document.body) {
+    run();
+} else {
+    document.addEventListener("DOMContentLoaded", run, false);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
